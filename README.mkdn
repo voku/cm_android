@@ -4,16 +4,29 @@ Getting Started
 To get started with Android, you'll need to get
 familiar with [Git and Repo](http://source.android.com/download/using-repo).
 
-To initialize your local repository using the dh-harald's trees, use a command like this:
+    sudo curl https://android.git.kernel.org/repo >/usr/bin/repo
+    chmod +x /usr/bin/repo
 
-    repo init -u git://github.com/dh-harald/cm_android.git -b froyo
+To initialize your local repository using the cadavre's trees, use a command like this:
+
+    repo init -u git://github.com/voku/cm_android.git -b froyo
 
 Then to sync up:
 
-    repo sync
+    repo sync -j15
 
-To build:
+Prepare for build:
 
     . build/envsetup.sh
     lunch spica-eng
-    make
+
+Optionally for gapps,3D libs from Intercept, live wallpapers and development (gcc, uclibc, etc):
+
+    export SPICA_WITH_GOOGLE=0
+    export SPICA_WITH_3D=1
+    export SPICA_WITH_LIVEWALLPAPERS=1
+    export SPICA_WITH_DEV=0
+
+Build:
+
+    mka otapackage -j8
